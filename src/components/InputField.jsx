@@ -1,27 +1,33 @@
+import IonIcon from '@reacticons/ionicons';
 import PropTypes from 'prop-types';
 
-function InputField({ labelText, inputName, placeholder, inputType, onchangeFunc, value }) {
+function InputField({
+  icon,
+  size = 'large',
+  inputType = 'text',
+  placeholder = 'Enter value',
+  value,
+  name,
+  id,
+  onChange,
+}) {
   return (
-    <div className="inputfiled_container">
-      <label htmlFor={inputName}>{labelText}</label>
-      <input
-        type={inputType}
-        name={inputName}
-        id={inputName}
-        placeholder={placeholder}
-        value={value}
-        onChange={onchangeFunc}
-      />
+    <div className="inputfield_container">
+      <IonIcon name={icon} size={size} className="react-ionicon" />
+      <input type={inputType} name={name} placeholder={placeholder} value={value} id={id} onChange={onChange} />
     </div>
   );
 }
 
 export default InputField;
+
 InputField.propTypes = {
-  labelText: PropTypes.string,
-  inputName: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
+  icon: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  inputType: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  inputType: PropTypes.string,
-  onchangeFunc: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };

@@ -1,5 +1,4 @@
-import Login from './AuthenticationPages/Login';
-import Signup from './AuthenticationPages/Signup';
-import Dashboard from './Dashboard';
+import Auth from './Auth';
+import Home from './Home';
 
-export { Login, Signup, Dashboard };
+export { Auth, Home };
