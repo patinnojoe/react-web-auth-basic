@@ -1,6 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { getDecryptedCookie } from '../utils/cookie';
 
-const isAuthenticated = false;
+let user = getDecryptedCookie('user');
+const isAuthenticated = user ? !!user.token : false;
 function GuestRoute() {
   return isAuthenticated ? <Navigate to="/" /> : <Outlet />;
 }

@@ -11,9 +11,39 @@ function AuthForm({ isLogin = true, handler, authNav }) {
     password: '',
     comfirmPassword: '',
   });
+  const [isValid, setIsValid] = useState({
+    email: true,
+    password: true,
+    confirmPassord: true,
+  });
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
+  };
+
+  const validate = (input) => {
+    // validate email
+    if (input.email.trim() === '' && !input.email.includes('@')) {
+      setIsValid({ ...isValid, email: !isValid.email });
+
+      return;
+    }
+
+    if (input.password.trim() < 7) {
+      setIsValid({ ...isValid, password: !isValid.password });
+      console.log('errorrr from password');
+      return;
+    }
+
+    if (!isLogin) {
+      if (input.password.trim() !== input.comfirmPassword.trim()) {
+        setIsValid({ ...isValid, password: !isValid.password, confirmPassord: !isValid.confirmPassord });
+        console.log('errorrr from password & confirm password');
+        return;
+      }
+    }
+
+    return handler(input);
   };
 
   let header = isLogin ? 'Welcome Back' : 'start Your Journey';
@@ -35,6 +65,7 @@ function AuthForm({ isLogin = true, handler, authNav }) {
             name="email"
             placeholder="Email"
             inputType="email"
+            isValid={isValid.email}
           />
           <InputField
             icon="lock-closed"
@@ -43,6 +74,7 @@ function AuthForm({ isLogin = true, handler, authNav }) {
             name="password"
             placeholder="Password"
             inputType="password"
+            isValid={isValid.password}
           />
 
           {isLogin ? (
@@ -55,6 +87,7 @@ function AuthForm({ isLogin = true, handler, authNav }) {
               name="comfirmPassword"
               placeholder="Confirm Password"
               inputType="password"
+              isValid={isValid.confirmPassord}
             />
           )}
         </div>
@@ -65,7 +98,7 @@ function AuthForm({ isLogin = true, handler, authNav }) {
             textColor="#173c2e"
             onClick={authNav}
           />
-          <FillButton text={isLogin ? 'Login' : 'Register'} onClick={() => handler(input)} />
+          <FillButton text={isLogin ? 'Login' : 'Register'} onClick={() => validate(input)} />
         </div>
 
         <div className="auth_container_loginMethod">

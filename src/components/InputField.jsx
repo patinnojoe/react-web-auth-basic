@@ -10,11 +10,20 @@ function InputField({
   name,
   id,
   onChange,
+  isValid = true,
 }) {
   return (
     <div className="inputfield_container">
       <IonIcon name={icon} size={size} className="react-ionicon" />
-      <input type={inputType} name={name} placeholder={placeholder} value={value} id={id} onChange={onChange} />
+      <input
+        type={inputType}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        id={id}
+        onChange={onChange}
+        className={isValid ? '' : 'errorShake'}
+      />
     </div>
   );
 }
@@ -30,4 +39,5 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  isValid: PropTypes.bool,
 };

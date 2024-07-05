@@ -22,6 +22,7 @@ function Login() {
       setEncryptedCookie('user', userDetails);
       navigate('/');
     } catch (error) {
+      // Todo Add UI for this
       alert('Something went wrong, verify login credentials');
       console.log(error);
     }
