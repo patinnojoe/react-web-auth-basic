@@ -1,0 +1,59 @@
+.main_header {
+  background: linear-gradient(90deg, var(--primary200) 0%, var(--primary100) 100%);
+  padding: 1rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  height: 5rem;
+  width: 100%;
+  box-shadow: 1px 2px 10px #00000025;
+}
+.main_header .iconbtn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.app-main {
+  width: 100vw;
+  height: 100vh;
+  padding-top: calc(5rem + 2rem);
+  background: var(--primary100);
+}
+
+.app-main .app_inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.app-main .app_inner .container {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 7rem);
+  padding: 1rem 2rem;
+}
+.app_inner .task_add {
+  background-color: var(--primary200);
+}
+.app_inner .task_nProgresss {
+  background-color: var(--primary300);
+}
+.app_inner .task_completed {
+  background-color: var(--primary400);
+  /* color: #ffffffee; */
+}
+
+.task_item {
+  background-color: #fff;
+  box-shadow: 1px 2px 10px #00000025;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.task_item .header {
+  border-bottom: 1px solid #00000025;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

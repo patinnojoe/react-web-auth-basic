@@ -7,4 +7,17 @@ import IconButton from './IconButton';
 import Login from './Login';
 import Register from './Register';
 import AuthForm from './AuthForm';
-export { GuestRoute, InputField, ProtectedRoutes, FillButton, FlatButton, IconButton, Login, Register, AuthForm };
+import Header from './Header';
+
+export {
+  GuestRoute,
+  InputField,
+  ProtectedRoutes,
+  FillButton,
+  FlatButton,
+  IconButton,
+  Login,
+  Register,
+  AuthForm,
+  Header,
+};

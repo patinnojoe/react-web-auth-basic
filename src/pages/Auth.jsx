@@ -6,12 +6,12 @@ import { TabButton, TabContent } from '../components/Tab';
 function Auth() {
   const tabs = [
     {
-      name: 'Login',
+      name: <p>Login</p>,
       content: <Login />,
     },
 
     {
-      name: 'Register',
+      name: <p>register</p>,
       content: <Register />,
     },
   ];
