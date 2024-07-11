@@ -8,6 +8,7 @@ import Login from './Login';
 import Register from './Register';
 import AuthForm from './AuthForm';
 import Header from './Header';
+import AddTaskModal from './AddTaskModal';
 
 export {
   GuestRoute,
@@ -20,4 +21,5 @@ export {
   Register,
   AuthForm,
   Header,
+  AddTaskModal,
 };

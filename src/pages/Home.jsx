@@ -1,5 +1,5 @@
 import IonIcon from '@reacticons/ionicons';
-import { Header } from '../components';
+import { AddTaskModal, Header } from '../components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 function Home() {
@@ -8,6 +8,7 @@ function Home() {
   };
   return (
     <div>
+      <AddTaskModal />
       <Header />
       <DragDropContext onDragEnd={handleDragEnd}>
         <main className="app-main">

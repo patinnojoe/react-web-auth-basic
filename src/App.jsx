@@ -5,25 +5,28 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import './styles/index.css';
 import TabContextProvider from './store/TabContext';
 import AuthContextProvider from './store/AuthContex';
+import { ModalProvider } from './store/ModalProvider';
 
 function App() {
   return (
     <AuthContextProvider>
-      <TabContextProvider>
-        <BrowserRouter>
-          <Routes>
-            {/* Guest routes */}
-            <Route element={<GuestRoute />}>
-              <Route path="/login" element={<Auth />} />
-            </Route>
+      <ModalProvider>
+        <TabContextProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Guest routes */}
+              <Route element={<GuestRoute />}>
+                <Route path="/login" element={<Auth />} />
+              </Route>
 
-            {/* protected routes */}
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/" element={<Home />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </TabContextProvider>
+              {/* protected routes */}
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/" element={<Home />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </TabContextProvider>
+      </ModalProvider>
     </AuthContextProvider>
   );
 }

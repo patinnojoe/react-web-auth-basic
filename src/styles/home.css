@@ -57,3 +57,39 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.addTask_modal .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.11);
+}
+.addTask_modal .header svg {
+  fill: red;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+.addTask_modal .body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  width: 100%;
+}
+.addTask_modal .body .inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.addTask_modal .body .inputGroup input {
+  width: 100%;
+}
+.addTask_modal .body .inputGroup > h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.addTask_modal .body .fillbtn {
+  font-size: 1.2rem;
+  padding: 1rem;
+}

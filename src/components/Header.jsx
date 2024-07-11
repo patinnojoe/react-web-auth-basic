@@ -1,3 +1,4 @@
+import { ModalButtonTrigger } from '../modal/Modal';
 import '../styles/home.css';
 import IconButton from './IconButton';
 
@@ -10,7 +11,9 @@ const Header = () => {
 
     <div className="main_header">
       <span>profile</span>
-      <IconButton hasText={true} icon="add" text="Add Task" textColor="#fff" />
+      <ModalButtonTrigger id="addTask">
+        <IconButton hasText={true} icon="add" text="Add Task" textColor="#fff" />
+      </ModalButtonTrigger>
     </div>
   );
 };
