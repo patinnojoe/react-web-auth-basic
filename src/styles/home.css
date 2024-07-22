@@ -17,8 +17,9 @@
 .app-main {
   width: 100vw;
   height: 100vh;
-  padding-top: calc(5rem + 2rem);
+  padding-top: calc(5rem + 0rem);
   background: var(--primary100);
+  overflow: hidden;
 }
 
 .app-main .app_inner {
@@ -30,7 +31,7 @@
 .app-main .app_inner .container {
   flex: 1;
   width: 100%;
-  height: calc(100vh - 7rem);
+  height: 100vh;
   padding: 1rem 2rem;
 }
 .app_inner .task_add {
@@ -49,6 +50,19 @@
   box-shadow: 1px 2px 10px #00000025;
   border-radius: 10px;
   cursor: pointer;
+  /* transition: 0.3s; */
+  margin-bottom: 0.5rem;
+}
+.item_containers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+.item_containers::-webkit-scrollbar {
+  width: 0;
 }
 .task_item .header {
   border-bottom: 1px solid #00000025;
@@ -92,4 +106,18 @@
 .addTask_modal .body .fillbtn {
   font-size: 1.2rem;
   padding: 1rem;
+}
+
+.addTask_modal .fillbtn {
+  background-color: #64bfcb;
+  transition: 0.3s;
+}
+.addTask_modal .fillbtn:hover {
+  background-color: #02626e;
+}
+.inputGroup .textarea {
+  border: 1px solid rgba(128, 128, 128, 0.349);
+  min-height: 5rem;
+  border-radius: 5px;
+  padding: 0.5rem;
 }

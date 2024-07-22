@@ -37,10 +37,12 @@ input::placeholder {
 }
 
 input,
-button {
+button,
+textarea {
   border: none;
   outline: none;
   background-color: transparent;
+  resize: none;
 }
 button {
   cursor: pointer;

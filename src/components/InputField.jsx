@@ -31,7 +31,7 @@ function InputField({
 export default InputField;
 
 InputField.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   size: PropTypes.string,
   inputType: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
