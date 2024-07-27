@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home, Auth } from './pages';
+import { Home, Auth, Analysis } from './pages';
 import { GuestRoute } from './components';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import './styles/index.css';
@@ -22,6 +22,7 @@ function App() {
               {/* protected routes */}
               <Route element={<ProtectedRoutes />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/analysis" element={<Analysis />} />
               </Route>
             </Routes>
           </BrowserRouter>

@@ -1,9 +1,11 @@
 import IonIcon from '@reacticons/ionicons';
-import { AddTaskModal, Header } from '../components';
+import { AddTaskModal } from '../components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useState } from 'react';
 
 function Home() {
+  // check if user is authenticated
+
   const [todo, setTodo] = useState([
     {
       id: 0,
@@ -103,18 +105,48 @@ function Home() {
   return (
     <div>
       <AddTaskModal />
-      <Header />
+
       <DragDropContext onDragEnd={handleDragEnd}>
-        <main className="app-main">
-          <section className="app_inner">
-            <div className="task_add container">
-              <h3>Tasks Added</h3>
-              <Droppable droppableId="todoTasks">
-                {(provided) => (
-                  <ul ref={provided.innerRef} {...provided.droppableProps} className="item_containers">
-                    {todo.map((todoItem, index) => (
-                      <Draggable key={'todoTasks' + index} draggableId={'todoItem' + index} index={index}>
-                        {(provided, snapshot) => (
+        <section className="app_inner">
+          <div className="task_add container">
+            <h3>Tasks Added</h3>
+            <Droppable droppableId="todoTasks">
+              {(provided) => (
+                <ul ref={provided.innerRef} {...provided.droppableProps} className="item_containers">
+                  {todo.map((todoItem, index) => (
+                    <Draggable key={'todoTasks' + index} draggableId={'todoItem' + index} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          className="task_item"
+                        >
+                          <header className="header">
+                            <p>04/06/07 (1 day ago)</p>
+                            <IonIcon name="hand-left" />
+                          </header>
+                          <section className="body">{todoItem.content}</section>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </div>
+
+          <div className="task_inProgress container">
+            <h3>Task in Progress</h3>
+            {/* make the Task in Progress a drop zone */}
+            <Droppable droppableId="taskInProgress">
+              {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef} className="item_containers">
+                  {task.map((taskItem, index) => (
+                    <Draggable key={'taskItem' + index} draggableId={'taskItem' + index} index={index}>
+                      {(provided) => {
+                        return (
                           <div
                             ref={provided.innerRef}
                             {...provided.dragHandleProps}
@@ -123,83 +155,51 @@ function Home() {
                           >
                             <header className="header">
                               <p>04/06/07 (1 day ago)</p>
-                              <IonIcon name="arrow-down" />
+                              <IonIcon name="hand-left" />
                             </header>
-                            <section className="body">{todoItem.content}</section>
+                            <section className="body">{taskItem.content}</section>
                           </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </ul>
-                )}
-              </Droppable>
-            </div>
+                        );
+                      }}
+                    </Draggable>
+                  ))}
 
-            <div className="task_inProgress container">
-              <h3>Task in Progress</h3>
-              {/* make the Task in Progress a drop zone */}
-              <Droppable droppableId="taskInProgress">
-                {(provided) => (
-                  <ul {...provided.droppableProps} ref={provided.innerRef} className="item_containers">
-                    {task.map((taskItem, index) => (
-                      <Draggable key={'taskItem' + index} draggableId={'taskItem' + index} index={index}>
-                        {(provided) => {
-                          return (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.dragHandleProps}
-                              {...provided.draggableProps}
-                              className="task_item"
-                            >
-                              <header className="header">
-                                <p>04/06/07 (1 day ago)</p>
-                                <IonIcon name="arrow-down" />
-                              </header>
-                              <section className="body">{taskItem.content}</section>
-                            </div>
-                          );
-                        }}
-                      </Draggable>
-                    ))}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </div>
 
-                    {provided.placeholder}
-                  </ul>
-                )}
-              </Droppable>
-            </div>
+          <div className="task_completed container">
+            <h3>Task Completed</h3>
+            <Droppable droppableId="completedTasks">
+              {(provided) => (
+                <ul ref={provided.innerRef} className="item_containers">
+                  {completedTask.map((task, index) => (
+                    <Draggable key={'completedTask' + index} draggableId={'completedTask' + index} index={index}>
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          className="task_item"
+                        >
+                          <header className="header">
+                            <p>04/06/07 (1 day ago)</p>
+                            <IonIcon name="hand-left" />
+                          </header>
+                          <section className="body">{task.content}</section>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
 
-            <div className="task_completed container">
-              <h3>Task Completed</h3>
-              <Droppable droppableId="completedTasks">
-                {(provided) => (
-                  <ul ref={provided.innerRef} className="item_containers">
-                    {completedTask.map((task, index) => (
-                      <Draggable key={'completedTask' + index} draggableId={'completedTask' + index} index={index}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                            className="task_item"
-                          >
-                            <header className="header">
-                              <p>04/06/07 (1 day ago)</p>
-                              <IonIcon name="arrow-down" />
-                            </header>
-                            <section className="body">{task.content}</section>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-
-                    {provided.placeholder}
-                  </ul>
-                )}
-              </Droppable>
-            </div>
-          </section>
-        </main>
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </div>
+        </section>
       </DragDropContext>
     </div>
   );

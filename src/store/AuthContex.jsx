@@ -15,7 +15,8 @@ export default function AuthContextProvider({ children }) {
     return setUserDetails(userDetails);
   };
   const logout = () => {
-    return setUserDetails(undefined);
+    localStorage.removeItem('token');
+    setUserDetails(undefined);
   };
 
   const values = {

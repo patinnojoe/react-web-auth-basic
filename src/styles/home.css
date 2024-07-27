@@ -19,7 +19,7 @@
   height: 100vh;
   padding-top: calc(5rem + 0rem);
   background: var(--primary100);
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .app-main .app_inner {
@@ -51,14 +51,14 @@
   border-radius: 10px;
   cursor: pointer;
   /* transition: 0.3s; */
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 .item_containers {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   overflow-y: auto;
   height: 100%;
+  min-height: 5rem;
   padding: 0 0.5rem;
 }
 .item_containers::-webkit-scrollbar {
@@ -70,6 +70,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.task_item .header svg {
+  fill: grey;
+}
+.task_item .body {
+  padding: 1rem;
 }
 
 .addTask_modal .header {
@@ -120,4 +126,90 @@
   min-height: 5rem;
   border-radius: 5px;
   padding: 0.5rem;
+}
+.main_header .user_profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.main_header .user_profile .dropdown.show {
+  height: 10rem;
+  overflow: unset;
+}
+.main_header .user_profile .dropdown {
+  background-color: #fbfbfb;
+  border-radius: 0.7rem;
+  min-width: 13rem;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 2rem;
+  z-index: 5;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.308);
+}
+.main_header .user_profile .dropdown ul {
+  list-style-type: none;
+}
+.main_header .user_profile .dropdown ul .item:last-child {
+  border-bottom: unset;
+}
+.main_header .user_profile .dropdown ul .item:hover {
+  border-color: rgb(56, 56, 56);
+}
+.main_header .user_profile .dropdown ul .item {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.397);
+  padding: 1rem 1.5rem;
+  transition: 0.3s;
+  cursor: pointer;
+  display: flex;
+}
+.main_header .user_profile .iconbtn {
+  background-color: transparent;
+  flex-direction: row-reverse;
+  align-items: end;
+  gap: 0.2rem;
+  font-weight: 600;
+}
+.main_header .user_profile .iconbtn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.task_add.container h3,
+.task_inProgress.container h3,
+.task_completed.container h3 {
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+  /* border-bottom: 1px solid #000; */
+  text-align: center;
+}
+.dropdown .log-out {
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+}
+.dropdown .log-out span {
+  color: rgb(187, 14, 14);
+}
+.dropdown .log-out svg {
+  height: 1.5rem;
+}
+.dropdown .watch_video {
+  padding: 0;
+}
+.dropdown .watch_video {
+  width: 100%;
+  height: 100%;
+  color: #000;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .app-main .app_inner {
+    flex-direction: column;
+  }
+  .app-main {
+    overflow-y: auto;
+  }
 }

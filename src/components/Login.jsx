@@ -3,7 +3,7 @@ import AuthForm from './AuthForm';
 import { AuthContext } from '../store/AuthContex';
 import { login } from '../utils/Auth';
 import { useNavigate } from 'react-router-dom';
-import { setEncryptedCookie } from '../utils/cookie';
+// import { setEncryptedCookie } from '../utils/cookie';
 
 function Login() {
   const authContext = useContext(AuthContext);
@@ -19,7 +19,10 @@ function Login() {
       };
       authContext.authenticate(userDetails);
       // store item in browser cookie
-      setEncryptedCookie('user', userDetails);
+
+      localStorage.setItem('token', JSON.stringify(res.data.idToken));
+      // setEncryptedCookie('user', userDetails);
+      console.log(userDetails);
       navigate('/');
     } catch (error) {
       // Todo Add UI for this

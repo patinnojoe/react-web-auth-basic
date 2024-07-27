@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '../modal/Modal';
 import FillButton from './FillButton';
 import IconButton from './IconButton';
@@ -30,7 +30,7 @@ const AddTaskModal = () => {
       <div className="addTask_modal">
         <header className="header">
           <h3>Add Task</h3>
-          <IconButton icon="close" hasText={false} />
+          <IconButton icon="close" hasText={false} onClick={() => closeModal('addTask')} />
         </header>
 
         <section className="body">
