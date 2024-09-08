@@ -204,6 +204,12 @@
   color: #000;
   text-decoration: none;
 }
+.default_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (max-width: 600px) {
   .app-main .app_inner {
@@ -211,5 +217,11 @@
   }
   .app-main {
     overflow-y: auto;
+  }
+  .main_header {
+    padding: 0.5rem 1rem;
+  }
+  .main_header .user_profile .dropdown {
+    left: 0;
   }
 }

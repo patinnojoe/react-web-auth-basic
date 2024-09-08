@@ -6,10 +6,12 @@ import './styles/index.css';
 import TabContextProvider from './store/TabContext';
 import AuthContextProvider from './store/AuthContex';
 import { ModalProvider } from './store/ModalProvider';
+import { Toaster } from 'sonner';
 
 function App() {
   return (
     <AuthContextProvider>
+      <Toaster />
       <ModalProvider>
         <TabContextProvider>
           <BrowserRouter>

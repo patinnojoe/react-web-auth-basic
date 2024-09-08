@@ -83,5 +83,17 @@ export const Section = styled.section`
 
   @media (max-width: 600px) {
     flex-direction: column;
+
+    .leader_details {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .leader_details {
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
   }
 `;

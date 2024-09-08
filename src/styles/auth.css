@@ -134,3 +134,23 @@
     width: 100%;
   }
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+  .auth_container-section {
+    width: 100%;
+  }
+  .auth_container-action {
+    border-radius: unset;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+  .auth_container-section h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  .auth_container-action-image .auth-nav .tab-btn {
+    padding: 1.8rem;
+  }
+  .app-main .app_inner .container {
+    padding: 1rem 0.5rem;
+  }
+}

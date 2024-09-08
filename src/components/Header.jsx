@@ -25,6 +25,16 @@ const Header = () => {
         <div className={`dropdown ${showDropDown ? 'show' : ''}`}>
           <ul>
             <Link
+              to="/"
+              className="watch_video item"
+              onClick={() => {
+                setShowDropDown(false);
+              }}
+            >
+              <li>Home</li>
+            </Link>
+
+            <Link
               to="/analysis"
               className="watch_video item"
               onClick={() => {
@@ -33,6 +43,7 @@ const Header = () => {
             >
               <li>Analysis</li>
             </Link>
+
             <a href="https://youtu.be/tXwXYvd0a68?si=9393vrSMG5K4Lq4M" target="_blank" className="watch_video item">
               <li>Watch Videos</li>
             </a>

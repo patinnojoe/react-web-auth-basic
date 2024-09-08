@@ -2,6 +2,7 @@ import IonIcon from '@reacticons/ionicons';
 import { AddTaskModal } from '../components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useState } from 'react';
+import { emptySVG } from '../../public';
 
 function Home() {
   // check if user is authenticated
@@ -113,24 +114,31 @@ function Home() {
             <Droppable droppableId="todoTasks">
               {(provided) => (
                 <ul ref={provided.innerRef} {...provided.droppableProps} className="item_containers">
-                  {todo.map((todoItem, index) => (
-                    <Draggable key={'todoTasks' + index} draggableId={'todoItem' + index} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          className="task_item"
-                        >
-                          <header className="header">
-                            <p>04/06/07 (1 day ago)</p>
-                            <IonIcon name="hand-left" />
-                          </header>
-                          <section className="body">{todoItem.content}</section>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
+                  {todo.length == 0 ? (
+                    <div className="default_container">
+                      <img src={emptySVG} />
+                      <small>Tidy, clean, there&apos;s nothing here</small>
+                    </div>
+                  ) : (
+                    todo.map((todoItem, index) => (
+                      <Draggable key={'todoTasks' + index} draggableId={'todoItem' + index} index={index}>
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            className="task_item"
+                          >
+                            <header className="header">
+                              <p>04/06/07 (1 day ago)</p>
+                              <IonIcon name="hand-left" />
+                            </header>
+                            <section className="body">{todoItem.content}</section>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))
+                  )}
                   {provided.placeholder}
                 </ul>
               )}
@@ -143,26 +151,33 @@ function Home() {
             <Droppable droppableId="taskInProgress">
               {(provided) => (
                 <ul {...provided.droppableProps} ref={provided.innerRef} className="item_containers">
-                  {task.map((taskItem, index) => (
-                    <Draggable key={'taskItem' + index} draggableId={'taskItem' + index} index={index}>
-                      {(provided) => {
-                        return (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                            className="task_item"
-                          >
-                            <header className="header">
-                              <p>04/06/07 (1 day ago)</p>
-                              <IonIcon name="hand-left" />
-                            </header>
-                            <section className="body">{taskItem.content}</section>
-                          </div>
-                        );
-                      }}
-                    </Draggable>
-                  ))}
+                  {task.length == 0 ? (
+                    <div className="default_container">
+                      <img src={emptySVG} />
+                      <small>Tidy, clean, there&apos;s nothing here</small>
+                    </div>
+                  ) : (
+                    task.map((taskItem, index) => (
+                      <Draggable key={'taskItem' + index} draggableId={'taskItem' + index} index={index}>
+                        {(provided) => {
+                          return (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                              className="task_item"
+                            >
+                              <header className="header">
+                                <p>04/06/07 (1 day ago)</p>
+                                <IonIcon name="hand-left" />
+                              </header>
+                              <section className="body">{taskItem.content}</section>
+                            </div>
+                          );
+                        }}
+                      </Draggable>
+                    ))
+                  )}
 
                   {provided.placeholder}
                 </ul>
@@ -175,24 +190,31 @@ function Home() {
             <Droppable droppableId="completedTasks">
               {(provided) => (
                 <ul ref={provided.innerRef} className="item_containers">
-                  {completedTask.map((task, index) => (
-                    <Draggable key={'completedTask' + index} draggableId={'completedTask' + index} index={index}>
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          className="task_item"
-                        >
-                          <header className="header">
-                            <p>04/06/07 (1 day ago)</p>
-                            <IonIcon name="hand-left" />
-                          </header>
-                          <section className="body">{task.content}</section>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
+                  {completedTask.length == 0 ? (
+                    <div className="default_container">
+                      <img src={emptySVG} />
+                      <small>Tidy, clean, there&apos;s nothing here</small>
+                    </div>
+                  ) : (
+                    completedTask.map((task, index) => (
+                      <Draggable key={'completedTask' + index} draggableId={'completedTask' + index} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            className="task_item"
+                          >
+                            <header className="header">
+                              <p>04/06/07 (1 day ago)</p>
+                              <IonIcon name="hand-left" />
+                            </header>
+                            <section className="body">{task.content}</section>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))
+                  )}
 
                   {provided.placeholder}
                 </ul>
