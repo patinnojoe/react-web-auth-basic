@@ -5,22 +5,23 @@ import IconButton from './IconButton';
 import InputField from './InputField';
 import { ModalContext } from '../store/ModalProvider';
 import { postTask } from '../utils/tasks';
+import { AuthContext } from '../store/AuthContex';
 
 const AddTaskModal = () => {
   const { closeModal } = useContext(ModalContext);
+  const { userDetails } = useContext(AuthContext);
+
   const [task, setTask] = useState({
-    taskname: '',
-    taskItem: '',
+    task_name: '',
+    task: '',
     taskDateAdded: '',
   });
 
   const handleAddTask = () => {
-    console.log(task);
-
-    postTask(task);
+    postTask(task, userDetails);
     setTask({
-      taskItem: '',
-      taskname: '',
+      task: '',
+      task_name: '',
       taskDateAdded: '',
     });
     closeModal('addTask');
@@ -38,11 +39,11 @@ const AddTaskModal = () => {
             <h6>Task Name</h6>
             <InputField
               inputType="text"
-              name="taskName"
+              name="task_name"
               placeholder="Enter a Task name if any"
-              value={task.taskname}
+              value={task.task_name}
               onChange={(e) => {
-                setTask({ ...task, taskname: e.target.value });
+                setTask({ ...task, task_name: e.target.value });
               }}
             />
           </div>
@@ -55,7 +56,7 @@ const AddTaskModal = () => {
               className="textarea"
               placeholder="Enter Task item"
               onChange={(e) => {
-                setTask({ ...task, taskItem: e.target.value });
+                setTask({ ...task, task: e.target.value });
               }}
             ></textarea>
             {/* <InputField inputType="text" name="task" placeholder="Enter a Signle Task" /> */}

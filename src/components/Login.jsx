@@ -26,7 +26,10 @@ function Login() {
         username: res.data.data.user.username,
         name: res.data.data.user.name,
         token: res.data.data.token,
+        userId: res.data.data.user_id,
       };
+
+      console.log('Registered user', userDetails);
       authContext.authenticate(userDetails);
       // store item in browser cookie
 

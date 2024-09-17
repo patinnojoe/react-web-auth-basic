@@ -24,6 +24,7 @@ export default function Register() {
         username: res.data.data.user.username,
         name: res.data.data.user.name,
         token: res.data.data.token,
+        userId: res.data.data.user_id,
       };
       authContext.authenticate(userDetails);
       // store cookie

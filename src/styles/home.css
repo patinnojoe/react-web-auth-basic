@@ -134,7 +134,7 @@
   flex-direction: column;
 }
 .main_header .user_profile .dropdown.show {
-  height: 10rem;
+  height: 14rem;
   overflow: unset;
 }
 .main_header .user_profile .dropdown {
