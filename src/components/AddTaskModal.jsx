@@ -5,11 +5,14 @@ import IconButton from './IconButton';
 import InputField from './InputField';
 import { ModalContext } from '../store/ModalProvider';
 import { postTask } from '../utils/tasks';
-import { AuthContext } from '../store/AuthContex';
+import { toast } from 'sonner';
 
 const AddTaskModal = () => {
   const { closeModal } = useContext(ModalContext);
-  const { userDetails } = useContext(AuthContext);
+  // const {  } = useContext(AuthContext);
+
+  let user = localStorage.getItem('pas-user');
+  let userDetails = JSON.parse(user);
 
   const [task, setTask] = useState({
     task_name: '',
@@ -17,13 +20,22 @@ const AddTaskModal = () => {
     taskDateAdded: '',
   });
 
-  const handleAddTask = () => {
-    postTask(task, userDetails);
-    setTask({
-      task: '',
-      task_name: '',
-      taskDateAdded: '',
-    });
+  const handleAddTask = async () => {
+    toast.info('😎 Adding task...');
+    try {
+      const res = await postTask(task, userDetails);
+      setTask({
+        task: '',
+        task_name: '',
+        taskDateAdded: '',
+      });
+      toast.success('⚒⚒ Task added! get to work!');
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      toast.error('😢😩 hate when this happens,try again');
+    }
+
     closeModal('addTask');
   };
   return (

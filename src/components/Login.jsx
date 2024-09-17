@@ -34,6 +34,7 @@ function Login() {
       // store item in browser cookie
 
       localStorage.setItem('token', JSON.stringify(res.data.data.token));
+      localStorage.setItem('pas-user', JSON.stringify(userDetails));
 
       // setEncryptedCookie('user', userDetails);
       console.log(userDetails);

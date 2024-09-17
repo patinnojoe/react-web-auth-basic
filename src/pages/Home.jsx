@@ -1,34 +1,55 @@
 import IonIcon from '@reacticons/ionicons';
 import { AddTaskModal } from '../components';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { emptySVG } from '../../public';
+import { toast } from 'sonner';
+import { getAllTask, updateTask } from '../utils/tasks';
 
 function Home() {
   // check if user is authenticated
+  let user = localStorage.getItem('pas-user');
+  let userDetails = JSON.parse(user);
+  const [allTask, setAllTask] = useState([]);
 
-  const [todo, setTodo] = useState([
-    {
-      id: 0,
-      content: 'TOdo item 1',
-    },
-    {
-      id: 1,
-      content: 'TOdo item 2',
-    },
-  ]);
-  const [task, setTask] = useState([
-    {
-      id: 0,
-      content: 'Task 1',
-    },
-    {
-      id: 1,
-      content: 'Task 2',
-    },
-  ]);
-
+  const [todo, setTodo] = useState([]);
+  const [task, setTask] = useState([]);
   const [completedTask, setCompletedTask] = useState([]);
+
+  // let me fetch all task
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      toast.info('😫 Fetching tasks...');
+      try {
+        const res = await getAllTask(userDetails);
+        setAllTask(res.data.data); // Assuming `res.data` contains the list of tasks
+        toast.success('😁 Mission accomplished,tasks fetched!');
+      } catch (error) {
+        console.log(error);
+        toast.error('😢😩 Hate when this happens, try again.');
+      }
+    };
+
+    if (userDetails && userDetails.token) {
+      fetchTasks();
+    }
+    // find to do task
+  }, []);
+
+  useEffect(() => {
+    // Now categorize the tasks based on their status
+    let taskAdded = allTask.filter((task) => task.task_status === 'task_added');
+    let taskInProgress = allTask.filter((task) => task.task_status === 'task_inProgress');
+    let taskCompleted = allTask.filter((task) => task.task_status === 'task_completed');
+
+    // Set the states for the respective task categories
+    setTodo(taskAdded);
+    setTask(taskInProgress);
+    setCompletedTask(taskCompleted);
+
+    // console.log(allTask, taskAdded, taskInProgress, taskCompleted);
+  }, [allTask]);
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
@@ -36,7 +57,7 @@ function Home() {
     const { source, destination } = result;
 
     if (source.droppableId === destination.droppableId) {
-      alert('shuffler, unsure!!');
+      toast.info('shuffler, unsure!!😵');
       return;
     }
     if (source.droppableId === destination.droppableId && source.index === destination.index) {
@@ -51,13 +72,15 @@ function Home() {
     let updatedCompletedTasks = [...completedTask];
 
     // check if todo task is dragged
-    console.log('item dragged', result);
+    // console.log('item dragged', result);
 
     // MOVE ITEM FROM TODO TO IN PROGRESS
     if (result.destination.droppableId === 'taskInProgress' && result.source.droppableId === 'todoTasks') {
-      alert('task is being added to in progress');
+      toast.info('😎 smooth drop!');
       // remove  the item from source
       let [movedTask] = todoItems.splice(source.index, 1);
+      updateTask(movedTask, userDetails, 'task_inProgress');
+
       setTodo(todoItems);
       //add the item to destination
       updatedTasks.splice(destination.index, 0, movedTask);
@@ -66,8 +89,9 @@ function Home() {
 
     // MOVE ITEM FROM IN PROGRESS BACK TO DO
     if (destination.droppableId === 'todoTasks' && source.droppableId === 'taskInProgress') {
-      alert('backward leap!');
+      toast.info('backward leap! 🐸');
       let [movedTask] = updatedTasks.splice(source.index, 1);
+      updateTask(movedTask, userDetails, 'task_added');
       setTask(updatedTasks);
 
       todoItems.splice(destination.index, 0, movedTask);
@@ -76,26 +100,29 @@ function Home() {
 
     // MOVE ITEM TO COMPLETED TASK FROM IN PROGRESS
     if (destination.droppableId === 'completedTasks' && source.droppableId === 'taskInProgress') {
-      alert('clean drop !');
+      toast.info('clean drop OG 💯!');
       let [movedTask] = updatedTasks.splice(source.index, 1);
+      updateTask(movedTask, userDetails, 'task_completed');
       setTask(updatedTasks);
 
       updatedCompletedTasks.splice(destination.index, 0, movedTask);
       setCompletedTask(updatedCompletedTasks);
     } else if (source.droppableId === 'completedTasks' && destination.droppableId === 'taskInProgress') {
-      alert('forgot your keys, huh?');
+      toast.info('forgot your something, huh?🤔');
 
       let [movedTask] = updatedCompletedTasks.splice(source.index, 1);
+      updateTask(movedTask, userDetails, 'task_inProgress');
       setCompletedTask(updatedCompletedTasks);
 
       updatedTasks.splice(destination.index, 0, movedTask);
       setTask(updatedTasks);
     } else if (source.droppableId === 'completedTasks' && destination.droppableId === 'todoTasks') {
-      alert('cant let you commit suicide');
+      toast.info('cant let you commit suicide 🤷‍♀️');
       return;
     } else if (destination.droppableId === 'completedTasks' && source.droppableId === 'todoTasks') {
-      alert('hmmm frog jump!!');
+      toast.info('hmmm frog jump!!😂');
       let [movedTask] = todoItems.splice(source.index, 1);
+      updateTask(movedTask, userDetails, 'task_completed');
       setTodo(todoItems);
 
       updatedCompletedTasks.splice(destination.index, 0, movedTask);
@@ -121,7 +148,7 @@ function Home() {
                     </div>
                   ) : (
                     todo.map((todoItem, index) => (
-                      <Draggable key={'todoTasks' + index} draggableId={'todoItem' + index} index={index}>
+                      <Draggable key={'todoTasks' + todoItem.id} draggableId={'todoItem' + todoItem.id} index={index}>
                         {(provided, snapshot) => (
                           <div
                             ref={provided.innerRef}
@@ -130,10 +157,17 @@ function Home() {
                             className="task_item"
                           >
                             <header className="header">
-                              <p>04/06/07 (1 day ago)</p>
+                              <div>
+                                {todoItem.task_name ? (
+                                  <span className="fw-bold">Task Name: {todoItem.task_name}</span>
+                                ) : (
+                                  ''
+                                )}
+                                <p>{todoItem.created_at}</p>
+                              </div>
                               <IonIcon name="hand-left" />
                             </header>
-                            <section className="body">{todoItem.content}</section>
+                            <section className="body">{todoItem.task}</section>
                           </div>
                         )}
                       </Draggable>
@@ -158,7 +192,7 @@ function Home() {
                     </div>
                   ) : (
                     task.map((taskItem, index) => (
-                      <Draggable key={'taskItem' + index} draggableId={'taskItem' + index} index={index}>
+                      <Draggable key={'taskItem' + taskItem.id} draggableId={'taskItem' + taskItem.id} index={index}>
                         {(provided) => {
                           return (
                             <div
@@ -168,10 +202,17 @@ function Home() {
                               className="task_item"
                             >
                               <header className="header">
-                                <p>04/06/07 (1 day ago)</p>
+                                <div>
+                                  {taskItem.task_name ? (
+                                    <span className="fw-bold">Task Name: {taskItem.task_name}</span>
+                                  ) : (
+                                    ''
+                                  )}
+                                  <p>{taskItem.created_at}</p>
+                                </div>
                                 <IonIcon name="hand-left" />
                               </header>
-                              <section className="body">{taskItem.content}</section>
+                              <section className="body">{taskItem.task}</section>
                             </div>
                           );
                         }}
@@ -197,7 +238,7 @@ function Home() {
                     </div>
                   ) : (
                     completedTask.map((task, index) => (
-                      <Draggable key={'completedTask' + index} draggableId={'completedTask' + index} index={index}>
+                      <Draggable key={'completedTask' + task.id} draggableId={'completedTask' + task.id} index={index}>
                         {(provided) => (
                           <div
                             ref={provided.innerRef}
@@ -206,10 +247,13 @@ function Home() {
                             className="task_item"
                           >
                             <header className="header">
-                              <p>04/06/07 (1 day ago)</p>
+                              <div>
+                                {task.task_name ? <span className="fw-bold">Task Name: {task.task_name}</span> : ''}
+                                <p>{task.created_at}</p>
+                              </div>
                               <IonIcon name="hand-left" />
                             </header>
-                            <section className="body">{task.content}</section>
+                            <section className="body">{task.task}</section>
                           </div>
                         )}
                       </Draggable>

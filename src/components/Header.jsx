@@ -7,7 +7,9 @@ import IonIcon from '@reacticons/ionicons';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const { userDetails, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
+  let user = localStorage.getItem('pas-user');
+  let userDetails = JSON.parse(user);
   const [showDropDown, setShowDropDown] = useState(false);
   const toggleDropDown = () => {
     setShowDropDown(() => !showDropDown);

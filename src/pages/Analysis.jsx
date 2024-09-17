@@ -1,6 +1,34 @@
+import { useEffect } from 'react';
 import { Section } from '../components/wrappers/Analysis';
+import { getGeneralAnalytics, getUserAnalysis } from '../utils/tasks';
 
 function Analysis() {
+  let user = localStorage.getItem('pas-user');
+  let userDetails = JSON.parse(user);
+  useEffect(() => {
+    const fetchGeneralAnalytics = async () => {
+      try {
+        const res = await getGeneralAnalytics(userDetails);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchGeneralAnalytics();
+  }, []);
+
+  useEffect(() => {
+    const fetUserAnalysis = async () => {
+      try {
+        const res = await getUserAnalysis(userDetails);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetUserAnalysis();
+  }, []);
+
   document.title = 'Pasevera | Analysis';
   return (
     <Section>

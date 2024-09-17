@@ -30,6 +30,7 @@ export default function Register() {
       // store cookie
 
       localStorage.setItem('token', JSON.stringify(res.data.data.token));
+      localStorage.setItem('pas-user', JSON.stringify(userDetails));
       toast.success('👌 Registraion successful !');
       // redirect to home
       navigate('/');
