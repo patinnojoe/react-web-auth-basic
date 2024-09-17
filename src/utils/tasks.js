@@ -42,6 +42,7 @@ export const updateTask = async (task, user, status) => {
   }
 };
 
+// FIX ANALYTICS
 export const getUserAnalysis = (user) => {
   return axios.get(`${BASE_URL}/getUserAnalysis`, {
     headers: {
@@ -57,3 +58,4 @@ export const getGeneralAnalytics = (user) => {
     },
   });
 };
+// PUSH
